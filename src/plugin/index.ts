@@ -92,7 +92,7 @@ export default function designHistory(
         const rel = decodeURIComponent(url.slice(ROUTE.length).split('?')[0] ?? '');
 
         // manifest
-        if (rel === '/manifest') {
+        if (rel === '/manifest.json' || rel === '/manifest') {
           const file = path.join(historyDir, 'manifest.json');
           if (!fs.existsSync(file)) {
             res.statusCode = 404;

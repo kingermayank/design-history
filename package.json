@@ -54,15 +54,9 @@
     "vite": "^5.4.8"
   },
   "exports": {
-    ".": {
-      "import": "./dist/cli.js"
-    },
-    "./vite": {
-      "import": "./dist/plugin/index.js"
-    },
-    "./react": {
-      "import": "./dist/plugin/react.js"
-    }
+    ".": "./dist/cli.js",
+    "./vite": "./dist/plugin/index.js",
+    "./react": "./dist/plugin/react.js"
   },
   "repository": {
     "type": "git",

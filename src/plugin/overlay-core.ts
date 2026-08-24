@@ -86,7 +86,7 @@ class Overlay {
 
   private async load(): Promise<void> {
     try {
-      const res = await fetch(`${this.base}/manifest`, { cache: 'no-store' });
+      const res = await fetch(`${this.base}/manifest.json`, { cache: 'no-store' });
       if (!res.ok) return;
       this.manifest = (await res.json()) as Manifest;
       this.snaps = this.manifest.snapshots ?? [];
