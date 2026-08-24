@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+*.log
+.vite
+.design-history
+examples/*/node_modules
+examples/*/.next
+examples/*/.design-history

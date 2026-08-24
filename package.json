@@ -1,0 +1,72 @@
+{
+  "name": "design-history",
+  "version": "0.1.0",
+  "description": "Visual git history for designers \u2014 auto-screenshots your app on every commit, with a local timeline viewer.",
+  "type": "module",
+  "bin": {
+    "design-history": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build:cli": "tsup",
+    "build:viewer": "vite build",
+    "build": "npm run build:viewer && npm run build:cli && npm run build:plugin",
+    "dev:cli": "tsup --watch",
+    "dev:viewer": "vite",
+    "typecheck": "tsc --noEmit",
+    "build:plugin": "esbuild src/plugin/index.ts --bundle --format=esm --platform=node --packages=external --outfile=dist/plugin/index.js && esbuild src/plugin/overlay.ts --bundle --format=iife --platform=browser --target=es2020 --minify --outfile=dist/plugin/overlay.js",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "design",
+    "screenshots",
+    "git",
+    "history",
+    "playwright",
+    "visual-regression",
+    "ui"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "open": "^10.1.0",
+    "playwright": "^1.48.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.13",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/cli.js"
+    },
+    "./vite": {
+      "import": "./dist/plugin/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingermayank/design-history.git"
+  },
+  "homepage": "https://github.com/kingermayank/design-history#readme",
+  "bugs": {
+    "url": "https://github.com/kingermayank/design-history/issues"
+  }
+}
