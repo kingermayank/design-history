@@ -99,13 +99,30 @@ export default {
 
 | Command | What it does |
 |---|---|
-| `design-history init` | Config, git hook, gitignore, Vite-plugin guidance. |
+| `design-history init` | Config, git hook, gitignore, framework detection for the in-app button. |
 | `design-history backfill` | Replay past commits into screenshots. `--limit N`, `--from <sha>`, `--branch <name>`. |
+| `design-history watch` | Attach to your **already-running** dev server and capture on each commit — no boot, unfailable. `--interval <sec>` also snaps while you iterate. |
+| `design-history replay` | Render your history into a shareable **MP4** (or `--gif`). `--route`, `--viewport`, `--per-frame <ms>`. |
 | `design-history view` | Open the standalone timeline viewer. |
 | `design-history capture` | Capture the current commit (used by the hook). |
 | `design-history snap [label]` | Ad-hoc capture for a moment that isn't a commit. |
 | `design-history auth` | Save cookies/localStorage for routes behind login. |
 | `design-history cache clear` | Delete the cached `node_modules` trees. |
+
+### Two shortcuts worth knowing
+
+**`watch` — the zero-risk first run.** Already have `npm run dev` going? Just:
+```bash
+npx design-history watch
+```
+It attaches to that server (no worktree, no install, no boot), captures your live app immediately, then re-captures on every commit. Nothing to fail.
+
+**`replay` — the thing you post.** Once you've got history:
+```bash
+npx design-history replay              # → .design-history/replay.mp4
+npx design-history replay --gif        # → a shareable GIF
+```
+One frame per version, oldest → newest. Your interface rebuilding itself in fast-forward.
 
 ## How it works
 

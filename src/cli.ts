@@ -5,6 +5,8 @@ import { runBackfill } from './commands/backfill.js';
 import { runView } from './commands/view.js';
 import { runAuth } from './commands/auth.js';
 import { runSnap } from './commands/snap.js';
+import { runWatch } from './commands/watch.js';
+import { runReplay } from './commands/replay.js';
 import { clearCache, formatBytes } from './core/installCache.js';
 import { getRepoRoot, isGitRepo } from './core/git.js';
 
@@ -60,6 +62,42 @@ program
   .description('Ad-hoc capture for a moment that isn\'t a commit.')
   .action(async (label) => {
     await runSnap(label);
+  });
+
+program
+  .command('watch')
+  .description('Attach to your already-running dev server and capture on each commit.')
+  .option('--interval <sec>', 'Also snap every N seconds while iterating.', (v) => parseInt(v, 10))
+  .action(async (opts) => {
+    try {
+      await runWatch({ intervalSec: opts.interval });
+    } catch (err) {
+      console.error(`✗ ${(err as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+program
+  .command('replay')
+  .description('Render your history into a shareable video (or GIF).')
+  .option('--out <file>', 'Output path (default: .design-history/replay.mp4).')
+  .option('--route <path>', 'Which route to replay (default: the first).')
+  .option('--viewport <name>', 'Which viewport (default: desktop).')
+  .option('--per-frame <ms>', 'Hold each version this long.', (v) => parseInt(v, 10))
+  .option('--gif', 'Render a GIF instead of MP4.')
+  .action(async (opts) => {
+    try {
+      await runReplay({
+        out: opts.out,
+        route: opts.route,
+        viewport: opts.viewport,
+        perFrameMs: opts.perFrame,
+        gif: opts.gif === true,
+      });
+    } catch (err) {
+      console.error(`✗ ${(err as Error).message}`);
+      process.exitCode = 1;
+    }
   });
 
 program
