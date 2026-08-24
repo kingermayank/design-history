@@ -36,16 +36,31 @@ This replays every commit: it checks out each one in an isolated worktree, boots
 npx design-history view
 ```
 
-**Or the in-app floating button** (Vite): add the plugin, then just run your dev server.
+**Or the in-app floating button** — a round button appears bottom-right of your running app; click it to open the time-travel dial. `init` detects your framework and prints the exact one-liner. It's dev-only and injects nothing into production.
+
+**Next.js, Remix, Create React App, or any React app** — add the component once to your app root:
+```tsx
+// app/layout.tsx (Next.js) · app/root.tsx (Remix) · src/index.tsx (CRA)
+import { DesignHistory } from 'design-history/react'
+
+// …then render it near the end of <body>:
+<DesignHistory />
+```
+
+**Vite** — add the plugin (auto-injects, no component needed):
 ```ts
 // vite.config.ts
 import designHistory from 'design-history/vite'
 
-export default defineConfig({
-  plugins: [react(), designHistory()],
-})
+export default defineConfig({ plugins: [react(), designHistory()] })
 ```
-A round button appears bottom-right of your app in dev. Click it to open the time-travel dial. It's dev-only and injects nothing into production.
+
+**Anything else (SvelteKit, Astro, plain HTML)** — a script tag:
+```html
+<script type="module" src="/__design-history/overlay.js"></script>
+```
+
+`init` sets up a `public/__design-history` symlink so the captured history is served to the button automatically — no extra server, no separate port.
 
 ---
 
