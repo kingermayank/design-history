@@ -1,7 +1,7 @@
 {
   "name": "design-history",
   "version": "0.1.0",
-  "description": "Visual git history for designers \u2014 auto-screenshots your app on every commit, with a local timeline viewer.",
+  "description": "Visual git history for designers — auto-screenshots your app on every commit, with a local timeline viewer.",
   "type": "module",
   "bin": {
     "design-history": "dist/cli.js"
@@ -35,9 +35,11 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "commander": "^12.1.0",
     "open": "^10.1.0",
-    "playwright": "^1.48.0"
+    "playwright": "^1.48.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^22.7.0",

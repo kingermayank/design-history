@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import open from 'open';
-import { getRepoRoot, isGitRepo } from '../core/git.js';
+import { getRepoRoot, isGitRepo, getCommitDiff, createRestoreBranch } from '../core/git.js';
 import { historyRoot, manifestPath } from '../core/paths.js';
 import { loadConfig } from '../core/config.js';
 import { buildSkeletonManifest } from '../core/skeleton.js';
@@ -157,6 +157,38 @@ export async function runView(opts: ViewOptions = {}): Promise<void> {
         res.end(JSON.stringify({ ok: true }));
       } catch {
         res.writeHead(400).end('bad json');
+      }
+      return;
+    }
+
+    if (pathname === '/api/diff') {
+      const sha = url.searchParams.get('sha');
+      if (!sha) {
+        res.writeHead(400).end('sha required');
+        return;
+      }
+      try {
+        const diff = getCommitDiff(projectRoot, sha);
+        res.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
+        res.end(JSON.stringify(diff));
+      } catch (e) {
+        res.writeHead(500).end(JSON.stringify({ error: (e as Error).message }));
+      }
+      return;
+    }
+
+    if (pathname === '/api/restore' && req.method === 'POST') {
+      try {
+        const body = (await readJsonBody(req)) as { sha?: string };
+        if (!body.sha) {
+          res.writeHead(400).end('sha required');
+          return;
+        }
+        const result = createRestoreBranch(projectRoot, body.sha);
+        res.writeHead(200, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, ...result }));
+      } catch (e) {
+        res.writeHead(500).end(JSON.stringify({ ok: false, error: (e as Error).message }));
       }
       return;
     }

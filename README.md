@@ -107,6 +107,7 @@ export default {
 | `design-history capture` | Capture the current commit (used by the hook). |
 | `design-history snap [label]` | Ad-hoc capture for a moment that isn't a commit. |
 | `design-history auth` | Save cookies/localStorage for routes behind login. |
+| `design-history mcp` | Start an MCP server so agents can query your visual history (stdio). |
 | `design-history cache clear` | Delete the cached `node_modules` trees. |
 
 ### Two shortcuts worth knowing
@@ -123,6 +124,19 @@ npx design-history replay              # → .design-history/replay.mp4
 npx design-history replay --gif        # → a shareable GIF
 ```
 One frame per version, oldest → newest. Your interface rebuilding itself in fast-forward.
+
+**`mcp` — let your agent see the past.** Point Claude or Cursor at your history:
+```jsonc
+// e.g. .cursor/mcp.json or Claude Desktop config
+{ "mcpServers": {
+    "design-history": { "command": "npx", "args": ["design-history", "mcp"] }
+} }
+```
+The agent gets three tools — `list_versions`, `get_screenshot` (returns the actual image), and `get_diff` — so *"what did the homepage look like before the redesign, and what changed?"* becomes answerable.
+
+## Diff & restore, in the viewer
+
+Open the viewer and hit **Diff & restore** on any version to see the exact code that produced that screenshot — files changed, the full patch — and **Restore** it with one click (creates a branch; never touches your working tree).
 
 ## How it works
 

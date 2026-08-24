@@ -10,5 +10,5 @@ export default defineConfig({
   sourcemap: false,
   shims: true,
   banner: { js: '#!/usr/bin/env node' },
-  external: ['playwright'],
+  external: ['playwright', '@modelcontextprotocol/sdk', 'zod'],
 });

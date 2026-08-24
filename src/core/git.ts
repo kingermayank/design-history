@@ -83,3 +83,50 @@ export function removeWorktree(cwd: string, dir: string): void {
 export function pruneWorktrees(cwd: string): void {
   spawnSync('git', ['worktree', 'prune'], { cwd, stdio: 'ignore' });
 }
+
+export interface DiffFile {
+  file: string;
+  added: number;
+  removed: number;
+}
+export interface CommitDiff {
+  parent: string | null;
+  files: DiffFile[];
+  patch: string;
+  truncated: boolean;
+}
+
+/** The code changes a commit introduced: per-file line counts + the patch text. */
+export function getCommitDiff(cwd: string, sha: string): CommitDiff {
+  const parent = gitSafe(['rev-parse', '--verify', `${sha}^`], cwd);
+  const numstat = parent
+    ? gitSafe(['diff', '--numstat', `${parent}..${sha}`], cwd)
+    : gitSafe(['show', '--numstat', '--format=', sha], cwd);
+  const files: DiffFile[] = (numstat ?? '')
+    .split('\n')
+    .filter((l) => l.trim().length > 0)
+    .map((l) => {
+      const parts = l.split('\t');
+      const added = parts[0] === '-' ? 0 : parseInt(parts[0] ?? '0', 10) || 0;
+      const removed = parts[1] === '-' ? 0 : parseInt(parts[1] ?? '0', 10) || 0;
+      return { file: parts.slice(2).join('\t'), added, removed };
+    });
+  const rawPatch = parent
+    ? gitSafe(['diff', `${parent}..${sha}`], cwd)
+    : gitSafe(['show', '--format=', sha], cwd);
+  const LIMIT = 200_000;
+  const full = rawPatch ?? '';
+  return { parent, files, patch: full.slice(0, LIMIT), truncated: full.length > LIMIT };
+}
+
+/**
+ * Create (or move) a branch pointing at `sha` so the user can restore that
+ * version. Non-destructive: it does NOT switch branches or touch the working
+ * tree. Returns the branch name and the command to switch to it.
+ */
+export function createRestoreBranch(cwd: string, sha: string): { branch: string; switchCommand: string } {
+  const short = gitSync(['rev-parse', '--short', sha], cwd);
+  const branch = `design-history/restore-${short}`;
+  execFileSync('git', ['branch', '-f', branch, sha], { cwd, stdio: 'ignore' });
+  return { branch, switchCommand: `git switch ${branch}` };
+}

@@ -5,6 +5,7 @@ import { Filters } from './components/Filters.js';
 import { EmptyState } from './components/EmptyState.js';
 import { WorkerBanner } from './components/WorkerBanner.js';
 import { TimeDial } from './components/TimeDial.js';
+import { DetailDrawer } from './components/DetailDrawer.js';
 import { resolveReferenceFrame } from './lib/resolveReference.js';
 
 const POLL_MS = 2500;
@@ -17,6 +18,7 @@ export function App(): React.JSX.Element {
   const [viewport, setViewport] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   // Initial + polling fetch.
   useEffect(() => {
@@ -174,6 +176,9 @@ export function App(): React.JSX.Element {
         total={totalSnapshots}
         shown={filtered.length}
         workerStatus={workerStatus}
+        onToggleDetails={() => setDetailsOpen((v) => !v)}
+        detailsOpen={detailsOpen}
+        canShowDetails={!!active}
       />
       {workerStatus && <WorkerBanner status={workerStatus} />}
       <Filters
@@ -217,6 +222,7 @@ export function App(): React.JSX.Element {
           )}
         </main>
       </div>
+      {detailsOpen && <DetailDrawer snapshot={active} onClose={() => setDetailsOpen(false)} />}
     </div>
   );
 }
@@ -226,6 +232,9 @@ function Header(props: {
   total: number;
   shown: number;
   workerStatus: WorkerStatus | null;
+  onToggleDetails: () => void;
+  detailsOpen: boolean;
+  canShowDetails: boolean;
 }): React.JSX.Element {
   const { workerStatus } = props;
   const doneFraction = workerStatus
@@ -260,6 +269,22 @@ function Header(props: {
             ? `${props.total} snapshot${props.total === 1 ? '' : 's'}`
             : `${props.shown} / ${props.total} snapshots`}
         </div>
+        <button
+          onClick={props.onToggleDetails}
+          disabled={!props.canShowDetails}
+          className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs ring-1 transition disabled:opacity-30 ${
+            props.detailsOpen
+              ? 'bg-fuchsia-500/15 text-fuchsia-200 ring-fuchsia-500/30'
+              : 'bg-neutral-900 text-neutral-300 ring-neutral-800 hover:bg-neutral-800'
+          }`}
+          title="Show the code diff and restore this version"
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M16 18l6-6-6-6" />
+            <path d="M8 6l-6 6 6 6" />
+          </svg>
+          Diff &amp; restore
+        </button>
       </div>
     </header>
   );

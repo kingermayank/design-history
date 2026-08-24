@@ -7,6 +7,7 @@ import { runAuth } from './commands/auth.js';
 import { runSnap } from './commands/snap.js';
 import { runWatch } from './commands/watch.js';
 import { runReplay } from './commands/replay.js';
+import { runMcp } from './commands/mcp.js';
 import { clearCache, formatBytes } from './core/installCache.js';
 import { getRepoRoot, isGitRepo } from './core/git.js';
 
@@ -133,6 +134,13 @@ cache
     const root = getRepoRoot(process.cwd());
     const { removed } = clearCache(root);
     console.log(`✓ Cleared install cache${removed ? ` (~${formatBytes(removed)} freed)` : ''}.`);
+  });
+
+program
+  .command('mcp')
+  .description('Start an MCP server (stdio) so agents can query your visual history.')
+  .action(async () => {
+    await runMcp();
   });
 
 program.parseAsync(process.argv).catch((err) => {
