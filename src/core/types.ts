@@ -36,6 +36,8 @@ export interface DesignHistoryConfig {
   startCommand?: string;
   serverReadyTimeoutMs?: number;
   backfill?: BackfillConfig;
+  /** Max concurrent page loads across all viewports/routes. Default 6. */
+  captureConcurrency?: number;
   /** Reuse node_modules across commits with identical lockfiles. Default true. */
   installCache?: boolean;
   /** Skip commits whose diff is entirely non-visual. Default true. */

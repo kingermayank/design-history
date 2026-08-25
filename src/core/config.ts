@@ -63,6 +63,7 @@ function validate(raw: Partial<DesignHistoryConfig>): DesignHistoryConfig {
         raw.backfill?.maxConcurrentWorktrees ?? DEFAULTS.backfill.maxConcurrentWorktrees,
       skipMergeCommits: raw.backfill?.skipMergeCommits ?? DEFAULTS.backfill.skipMergeCommits,
     },
+    captureConcurrency: raw.captureConcurrency,
     installCache: raw.installCache ?? DEFAULTS.installCache,
     skip: {
       enabled: raw.skip?.enabled ?? DEFAULTS.skip.enabled,

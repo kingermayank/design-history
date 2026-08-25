@@ -49,28 +49,47 @@ export async function captureBundle(opts: CaptureBundleOptions): Promise<Snapsho
   const browser = opts.browser ?? (await chromium.launch({ headless: true }));
   const ownsBrowser = !opts.browser;
 
+  // Bound total concurrent page loads so the single dev server isn't swamped.
+  // Split the budget across viewports (each viewport is its own context).
+  const GLOBAL_CONCURRENCY = config.captureConcurrency ?? 6;
+  const perViewport = Math.max(1, Math.floor(GLOBAL_CONCURRENCY / config.viewports.length));
+
   try {
     const viewportFrames = await Promise.all(
       config.viewports.map(async (viewport) => {
-      const context: BrowserContext = await browser.newContext({
-        viewport: { width: viewport.width, height: viewport.height },
-        deviceScaleFactor: 2,
-        storageState,
-      });
+        const context: BrowserContext = await browser.newContext({
+          viewport: { width: viewport.width, height: viewport.height },
+          deviceScaleFactor: 2,
+          storageState,
+        });
         const frames: SnapshotFrame[] = [];
+        let cursor = 0;
 
         try {
-          const page = await context.newPage();
-          for (const route of routes) {
-            try {
-              const frame = await captureOne(page, base, route, viewport, outDir, config);
-              frames.push(frame);
-            } catch (err) {
-              console.error(
-                `  ! Failed to capture ${route.path} @ ${viewport.name}: ${(err as Error).message}`,
-              );
-            }
-          }
+          // A small pool of pages pulls routes off a shared cursor — routes for
+          // this viewport render concurrently instead of one at a time.
+          const poolSize = Math.min(perViewport, routes.length);
+          await Promise.all(
+            Array.from({ length: poolSize }, async () => {
+              const page = await context.newPage();
+              try {
+                for (;;) {
+                  const i = cursor++;
+                  if (i >= routes.length) break;
+                  const route = routes[i]!;
+                  try {
+                    frames.push(await captureOne(page, base, route, viewport, outDir, config));
+                  } catch (err) {
+                    console.error(
+                      `  ! Failed to capture ${route.path} @ ${viewport.name}: ${(err as Error).message}`,
+                    );
+                  }
+                }
+              } finally {
+                await page.close().catch(() => {});
+              }
+            }),
+          );
         } finally {
           await context.close();
         }
