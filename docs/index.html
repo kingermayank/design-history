@@ -6,246 +6,227 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=Inter:wght@400;450;500;550;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ground: #f4f2ef;
-    --surface: #ffffff;
-    --surface-2: #efece8;
-    --line: rgba(23, 20, 34, 0.10);
-    --line-strong: rgba(23, 20, 34, 0.16);
-    --ink: #17141f;
-    --muted: #5f5a6b;
-    --faint: #8b8698;
-    --fuchsia: #d6247e;
-    --amber: #d98a10;
-    --grad: linear-gradient(100deg, #e0348a, #ec7a3c 55%, #e5a51f);
-    --grad-soft: linear-gradient(100deg, rgba(224,52,138,.14), rgba(229,165,31,.14));
-    --shadow: 0 30px 70px -34px rgba(23,20,34,.4);
-    --screen-bg: #0e0d13;
-    --screen-ink: #ece9f2;
-    --screen-line: rgba(255,255,255,.09);
-  }
-  :root:not([data-theme="light"]) {
+    --ground: #FDFDFC;
+    --surface: #FFFFFF;
+    --surface-subtle: #F6F5F4;
+    --surface-dark: #1A1A1A;
+    --ink-900: rgba(0,0,0,0.85);
+    --ink-800: rgba(0,0,0,0.78);
+    --ink-700: rgba(0,0,0,0.65);
+    --ink-500: rgba(0,0,0,0.50);
+    --ink-400: rgba(0,0,0,0.35);
+    --hairline: rgba(0,0,0,0.06);
+    --hairline-strong: rgba(0,0,0,0.10);
+    --blue: #2480ED;
+    --blue-solid: #3C82F7;
+    --violet: #7C3AED;
+    --red: #E5484D;
+    --green: #22C55E;
+    --card-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.08);
+    --card-shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --screen-bg: #101013;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground: #0c0b10;
-      --surface: #141219;
-      --surface-2: #1b1824;
-      --line: rgba(255,255,255,.09);
-      --line-strong: rgba(255,255,255,.16);
-      --ink: #ece9f2;
-      --muted: #9b96a8;
-      --faint: #6c6779;
-      --fuchsia: #f472b6;
-      --amber: #f5b544;
-      --grad: linear-gradient(100deg, #ec4899, #f0873f 55%, #f5b83f);
-      --grad-soft: linear-gradient(100deg, rgba(236,72,153,.16), rgba(245,184,63,.14));
-      --shadow: 0 30px 80px -30px rgba(0,0,0,.7);
-      --screen-bg: #0e0d13;
+      --ground: #0E0E0F; --surface: #161617; --surface-subtle: #1C1C1E; --surface-dark: #050506;
+      --ink-900: rgba(255,255,255,0.92); --ink-800: rgba(255,255,255,0.80); --ink-700: rgba(255,255,255,0.70);
+      --ink-500: rgba(255,255,255,0.50); --ink-400: rgba(255,255,255,0.38);
+      --hairline: rgba(255,255,255,0.09); --hairline-strong: rgba(255,255,255,0.16);
+      --blue: #5AA2F5; --blue-solid: #3C82F7;
+      --card-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 6px 20px rgba(0,0,0,.4);
+      --card-shadow-sm: 0 1px 2px rgba(0,0,0,.3);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --ground: #0c0b10;
-    --surface: #141219;
-    --surface-2: #1b1824;
-    --line: rgba(255,255,255,.09);
-    --line-strong: rgba(255,255,255,.16);
-    --ink: #ece9f2;
-    --muted: #9b96a8;
-    --faint: #6c6779;
-    --fuchsia: #f472b6;
-    --amber: #f5b544;
-    --grad: linear-gradient(100deg, #ec4899, #f0873f 55%, #f5b83f);
-    --grad-soft: linear-gradient(100deg, rgba(236,72,153,.16), rgba(245,184,63,.14));
-    --shadow: 0 30px 80px -30px rgba(0,0,0,.7);
-    color-scheme: dark;
+    --ground: #0E0E0F; --surface: #161617; --surface-subtle: #1C1C1E; --surface-dark: #050506;
+    --ink-900: rgba(255,255,255,0.92); --ink-800: rgba(255,255,255,0.80); --ink-700: rgba(255,255,255,0.70);
+    --ink-500: rgba(255,255,255,0.50); --ink-400: rgba(255,255,255,0.38);
+    --hairline: rgba(255,255,255,0.09); --hairline-strong: rgba(255,255,255,0.16);
+    --blue: #5AA2F5; --card-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 6px 20px rgba(0,0,0,.4);
+    --card-shadow-sm: 0 1px 2px rgba(0,0,0,.3); color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    margin: 0;
-    background: var(--ground);
-    color: var(--ink);
-    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
+    margin: 0; background: var(--ground); color: var(--ink-700);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px; font-weight: 450; line-height: 1.65; letter-spacing: -0.006em;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
   }
-  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
-  section { padding: clamp(56px, 9vw, 104px) 0; }
-  h1, h2, h3 { font-family: "Bricolage Grotesque", ui-sans-serif, sans-serif; font-weight: 600; text-wrap: balance; letter-spacing: -0.02em; margin: 0; }
-  a { color: inherit; }
-  .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace; }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+  section { padding: clamp(52px, 8vw, 72px) 0; }
+  .serif { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 500; font-style: normal; }
+  .mono { font-family: ui-monospace, "SF Mono", SFMono-Regular, "IBM Plex Mono", monospace; }
+  h1, h2, h3 { margin: 0; color: var(--ink-900); }
+  a { color: inherit; text-decoration: none; }
+
   .eyebrow {
-    font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 500;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint);
+    font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-400);
   }
+  .eyebrow.red { color: var(--red); }
 
-  /* ---- top bar ---- */
-  header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
-    background: color-mix(in srgb, var(--ground) 78%, transparent);
-    border-bottom: 1px solid var(--line); }
-  .bar { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .brand { display: flex; align-items: center; gap: 11px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; letter-spacing: -0.01em; font-size: 17px; }
-  .dot { width: 20px; height: 20px; border-radius: 6px; background: var(--grad); box-shadow: 0 4px 14px -4px var(--fuchsia); }
-  .bar nav { display: flex; gap: 22px; align-items: center; }
-  .bar nav a { text-decoration: none; color: var(--muted); font-size: 14.5px; }
-  .bar nav a:hover { color: var(--ink); }
-  .ghlink { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line-strong); padding: 7px 13px; border-radius: 999px; font-size: 13.5px; color: var(--ink); text-decoration: none; }
-  .ghlink:hover { background: var(--surface-2); }
-  @media (max-width: 680px) { .bar nav .hide-sm { display: none; } }
+  /* nav */
+  header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--hairline);
+    background: color-mix(in srgb, var(--ground) 82%, transparent); backdrop-filter: blur(12px); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 54px; }
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .brand b { font-family: "IBM Plex Serif", serif; font-weight: 500; font-size: 16px; color: var(--ink-900); letter-spacing: -0.01em; }
+  .dot { width: 15px; height: 15px; border-radius: 5px; background: var(--blue-solid); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+  .bar nav { display: flex; gap: 20px; align-items: center; }
+  .bar nav a { font-size: 13px; color: var(--ink-500); transition: color .15s; }
+  .bar nav a:hover { color: var(--ink-900); }
+  .ghlink { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-800);
+    border: 1px solid var(--hairline-strong); border-radius: 8px; padding: 5px 11px;
+    transition: background-color .2s var(--ease), transform .15s var(--ease); }
+  .ghlink:hover { background: var(--surface-subtle); transform: translateY(-1px); }
+  @media (max-width: 640px) { .bar nav .hide-sm { display: none; } }
 
-  /* ---- hero ---- */
-  .hero { padding-top: clamp(48px, 8vw, 88px); padding-bottom: clamp(40px, 6vw, 72px); }
-  .hero h1 { font-size: clamp(40px, 7vw, 74px); line-height: 1.02; font-weight: 700; }
-  .hero h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lede { color: var(--muted); font-size: clamp(17px, 2.2vw, 20px); max-width: 33em; margin: 22px 0 0; }
-  .cmdrow { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 30px; }
-  .cmd {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: var(--surface); border: 1px solid var(--line-strong);
-    border-radius: 12px; padding: 12px 15px; box-shadow: var(--shadow);
-  }
-  .cmd .prompt { color: var(--fuchsia); }
-  .cmd code { font-family: "JetBrains Mono", monospace; font-size: 14.5px; color: var(--ink); }
-  .cmd button { border: 0; background: var(--surface-2); color: var(--muted); font-size: 12px; padding: 6px 10px; border-radius: 7px; cursor: pointer; font-family: "JetBrains Mono", monospace; }
-  .cmd button:hover { color: var(--ink); }
-  .cta {
-    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-    background: var(--grad); color: #fff; font-weight: 600; font-size: 15px;
-    padding: 13px 20px; border-radius: 12px; box-shadow: 0 14px 30px -12px var(--fuchsia);
-  }
-  .cta:hover { filter: brightness(1.05); }
+  /* hero */
+  .hero { padding-top: clamp(40px, 7vw, 68px); padding-bottom: clamp(32px, 5vw, 52px); }
+  .hero h1 { font-family: "IBM Plex Serif", serif; font-weight: 500; font-size: clamp(30px, 5vw, 46px);
+    line-height: 1.14; letter-spacing: -0.005em; color: var(--ink-900); max-width: 15ch; }
+  .lede { margin: 18px 0 0; font-size: 15.5px; color: var(--ink-700); max-width: 56ch; }
+  .cmdrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 26px; }
+  .cmd { display: inline-flex; align-items: center; gap: 11px; background: var(--surface);
+    border-radius: 8px; padding: 9px 13px; box-shadow: var(--card-shadow); }
+  .cmd .p { color: var(--ink-400); }
+  .cmd code { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; color: var(--ink-900); }
+  .cmd button { border: 0; background: transparent; color: var(--ink-400); font: inherit; font-size: 11px;
+    cursor: pointer; padding: 2px 4px; transition: color .15s; }
+  .cmd button:hover { color: var(--ink-900); }
+  .btn-primary { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-solid); color: #fff;
+    font-size: 13.5px; font-weight: 550; padding: 9px 16px; border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.08); transition: transform .15s var(--ease), box-shadow .2s var(--ease), filter .2s; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 14px -4px rgba(60,130,247,.5); filter: brightness(1.03); }
 
-  /* ---- filmstrip demo ---- */
-  .stage { margin-top: clamp(40px, 6vw, 68px); }
-  .strip-frame {
-    position: relative; border-radius: 20px; padding: 30px 0 22px;
-    background: var(--screen-bg); border: 1px solid var(--screen-line);
-    box-shadow: var(--shadow); overflow: hidden;
-  }
-  .strip-frame .fade-l, .strip-frame .fade-r { position: absolute; top: 0; bottom: 0; width: 90px; z-index: 4; pointer-events: none; }
-  .strip-frame .fade-l { left: 0; background: linear-gradient(90deg, var(--screen-bg), transparent); }
-  .strip-frame .fade-r { right: 0; background: linear-gradient(270deg, var(--screen-bg), transparent); }
-  .needle { position: absolute; left: 50%; top: 14px; bottom: 44px; width: 2px; transform: translateX(-50%); z-index: 5; background: linear-gradient(var(--fuchsia), transparent); }
-  .needle::before { content: ""; position: absolute; top: -1px; left: -5px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid var(--fuchsia); }
-  .reel { display: flex; gap: 18px; width: max-content; padding: 0 calc(50% - 118px); animation: scrub 26s linear infinite; }
+  /* filmstrip demo */
+  .stage { margin-top: clamp(30px, 5vw, 46px); }
+  .strip-frame { position: relative; border-radius: 12px; padding: 26px 0 20px; background: var(--surface-dark);
+    box-shadow: var(--card-shadow); overflow: hidden; }
+  .fade-l, .fade-r { position: absolute; top: 0; bottom: 0; width: 72px; z-index: 4; pointer-events: none; }
+  .fade-l { left: 0; background: linear-gradient(90deg, var(--surface-dark), transparent); }
+  .fade-r { right: 0; background: linear-gradient(270deg, var(--surface-dark), transparent); }
+  .needle { position: absolute; left: 50%; top: 12px; bottom: 40px; width: 2px; transform: translateX(-50%); z-index: 5;
+    background: linear-gradient(var(--blue-solid), transparent); }
+  .needle::before { content:""; position:absolute; top:-1px; left:-4px; border-left:4px solid transparent;
+    border-right:4px solid transparent; border-top:6px solid var(--blue-solid); }
+  .reel { display: flex; gap: 16px; width: max-content; padding: 0 calc(50% - 110px);
+    animation: scrub 26s linear infinite; }
   @media (prefers-reduced-motion: reduce) { .reel { animation: none; } }
-  @keyframes scrub { from { transform: translateX(0); } to { transform: translateX(calc(-236px * 5)); } }
-  .frame { width: 236px; flex: 0 0 236px; }
-  .shot { height: 150px; border-radius: 10px; overflow: hidden; border: 1px solid var(--screen-line); position: relative; }
-  .shot .nav { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; font-size: 8px; letter-spacing: .12em; font-weight: 700; }
-  .shot .hl { height: 13px; margin: 12px 12px 0; border-radius: 3px; width: 68%; }
-  .shot .hl.b { width: 46%; margin-top: 6px; }
-  .shot .sub { height: 6px; width: 54%; margin: 10px 12px 0; border-radius: 3px; opacity: .6; }
-  .shot .btn { height: 20px; width: 74px; margin: 12px; border-radius: 6px; }
-  .shot .cards { display: flex; gap: 6px; margin: 10px 12px 0; }
-  .shot .cards div { flex: 1; height: 26px; border-radius: 5px; }
-  .cap { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; padding: 0 2px; }
-  .cap .date { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--screen-ink); opacity: .85; }
-  .cap .sha { font-family: "JetBrains Mono", monospace; font-size: 10px; color: #7c7789; }
-  /* five eras, mirroring a real project's evolution */
-  .s1 { background: #f5f5f4; color: #1a1a1a; } .s1 .nav { color:#1a1a1a; } .s1 .hl,.s1 .hl.b { background:#111; } .s1 .sub { background:#777; } .s1 .btn { background:#111; }
-  .s2 { background: linear-gradient(180deg,#fef3c7,#fde68a); color:#3a2c05; } .s2 .hl,.s2 .hl.b { background:#3a2c05; } .s2 .sub{ background:#8a6d1a;} .s2 .btn{ background:#3a2c05;}
-  .s3 { background: linear-gradient(180deg,#fef3c7,#fbcfe8); color:#3a2c05;} .s3 .hl,.s3 .hl.b{background:#3a2c05;} .s3 .sub{background:#8a6d1a;} .s3 .cards div{ background:rgba(0,0,0,.10);}
-  .s4 { background: linear-gradient(180deg,#0f172a,#1e1b4b); color:#e6e6f0;} .s4 .nav{color:#e6e6f0;} .s4 .hl,.s4 .hl.b{background:#f4f4f8;} .s4 .sub{background:#8f8fb0;} .s4 .btn{ background:linear-gradient(135deg,#a855f7,#ec4899);}
-  .s5 { background: linear-gradient(180deg,#0f172a,#241b4b); color:#e6e6f0;} .s5 .nav{color:#e6e6f0;} .s5 .hl,.s5 .hl.b{background:#f4f4f8;} .s5 .sub{background:#8f8fb0;} .s5 .btn{ background:linear-gradient(135deg,#a855f7,#ec4899);} .s5 .cards div{ background:rgba(255,255,255,.06);}
-  .scrub-hint { text-align: center; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--faint); letter-spacing: .04em; }
+  @keyframes scrub { from { transform: translateX(0); } to { transform: translateX(calc(-220px * 5)); } }
+  .frame { width: 220px; flex: 0 0 220px; }
+  .shot { height: 138px; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.07); position: relative; }
+  .shot .nav { display: flex; justify-content: space-between; align-items: center; padding: 8px 11px; font-size: 7.5px; letter-spacing: .12em; font-weight: 700; }
+  .shot .hl { height: 12px; margin: 11px 11px 0; border-radius: 3px; width: 66%; }
+  .shot .hl.b { width: 44%; margin-top: 5px; }
+  .shot .sub { height: 5px; width: 52%; margin: 9px 11px 0; border-radius: 3px; opacity: .6; }
+  .shot .btn { height: 18px; width: 66px; margin: 11px; border-radius: 5px; }
+  .shot .cards { display: flex; gap: 5px; margin: 9px 11px 0; }
+  .shot .cards div { flex: 1; height: 22px; border-radius: 4px; }
+  .cap { display: flex; justify-content: space-between; align-items: baseline; margin-top: 9px; padding: 0 2px; }
+  .cap .date { font-family: ui-monospace, monospace; font-size: 10px; color: rgba(255,255,255,.75); }
+  .cap .sha { font-family: ui-monospace, monospace; font-size: 9px; color: rgba(255,255,255,.4); }
+  .s1{background:#f5f5f4;color:#1a1a1a;} .s1 .nav{color:#1a1a1a;} .s1 .hl,.s1 .hl.b{background:#111;} .s1 .sub{background:#777;} .s1 .btn{background:#111;}
+  .s2{background:linear-gradient(180deg,#eaf2fe,#d7e6fc);color:#0b2b52;} .s2 .hl,.s2 .hl.b{background:#0b2b52;} .s2 .sub{background:#3f70b5;} .s2 .btn{background:#2480ED;}
+  .s3{background:linear-gradient(180deg,#eaf2fe,#e7defc);color:#0b2b52;} .s3 .hl,.s3 .hl.b{background:#0b2b52;} .s3 .sub{background:#3f70b5;} .s3 .cards div{background:rgba(0,0,0,.08);}
+  .s4{background:linear-gradient(180deg,#0f1830,#151d3a);color:#e6ecff;} .s4 .nav{color:#e6ecff;} .s4 .hl,.s4 .hl.b{background:#eef2ff;} .s4 .sub{background:#7f8fc0;} .s4 .btn{background:#3C82F7;}
+  .s5{background:linear-gradient(180deg,#0f1830,#1a1740);color:#e6ecff;} .s5 .nav{color:#e6ecff;} .s5 .hl,.s5 .hl.b{background:#eef2ff;} .s5 .sub{background:#7f8fc0;} .s5 .btn{background:linear-gradient(135deg,#3C82F7,#7C3AED);} .s5 .cards div{background:rgba(255,255,255,.06);}
+  .scrub-hint { text-align: center; margin-top: 13px; font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-400); }
 
-  /* ---- pillars ---- */
-  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  @media (max-width: 760px) { .pillars { grid-template-columns: 1fr; } }
-  .pill { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
-  .pill .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--grad-soft); color: var(--fuchsia); margin-bottom: 15px; }
-  .pill h3 { font-size: 19px; margin-bottom: 7px; }
-  .pill p { margin: 0; color: var(--muted); font-size: 15px; }
+  /* pillars */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .pillars { grid-template-columns: 1fr; } }
+  .pill { background: var(--surface); border-radius: 12px; padding: 20px; box-shadow: var(--card-shadow); }
+  .pill .ic { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+    background: var(--surface-subtle); color: var(--blue); margin-bottom: 13px; }
+  .pill h3 { font-size: 14px; font-weight: 550; letter-spacing: -0.006em; margin-bottom: 5px; }
+  .pill p { margin: 0; font-size: 14px; color: var(--ink-700); }
 
-  .section-head { max-width: 40em; margin-bottom: 44px; }
-  .section-head h2 { font-size: clamp(27px, 4vw, 38px); margin-top: 12px; }
-  .section-head p { color: var(--muted); margin: 14px 0 0; font-size: 17px; }
+  .section-head { margin-bottom: 32px; }
+  .section-head h2 { font-family: "IBM Plex Serif", serif; font-weight: 500; font-size: clamp(21px, 3vw, 26px);
+    letter-spacing: -0.01em; margin-top: 9px; }
+  .section-head p { margin: 10px 0 0; font-size: 14.5px; color: var(--ink-700); max-width: 58ch; }
 
-  /* ---- journey ---- */
-  .steps { display: grid; gap: 0; border-top: 1px solid var(--line); }
-  .step { display: grid; grid-template-columns: 68px 1fr; gap: 26px; padding: 30px 0; border-bottom: 1px solid var(--line); align-items: start; }
-  @media (max-width: 640px) { .step { grid-template-columns: 40px 1fr; gap: 16px; } }
-  .step .n { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 30px; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
-  .step h3 { font-size: 20px; margin-bottom: 8px; }
-  .step p { margin: 0 0 14px; color: var(--muted); font-size: 15.5px; max-width: 44em; }
-  .step .term {
-    background: var(--screen-bg); border: 1px solid var(--screen-line); border-radius: 10px;
-    padding: 12px 14px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--screen-ink);
-    overflow-x: auto;
-  }
-  .step .term .c { color: #f472b6; } .step .term .o { color: #7c7789; } .step .term .g { color: #86efac; }
-  .step .tag { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; margin-top: 12px; }
+  /* steps */
+  .steps { border-top: 1px solid var(--hairline); }
+  .step { display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 22px 0;
+    border-bottom: 1px solid var(--hairline); align-items: start; }
+  @media (max-width: 600px){ .step{ grid-template-columns: 28px 1fr; gap: 14px; } }
+  .step .n { font-family: "IBM Plex Serif", serif; font-weight: 500; font-size: 22px; color: var(--ink-400); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .step h3 { font-size: 14px; font-weight: 550; letter-spacing: -0.006em; margin-bottom: 6px; }
+  .step p { margin: 0 0 12px; font-size: 14px; color: var(--ink-700); max-width: 62ch; }
+  .term { background: var(--surface-dark); border-radius: 10px; padding: 11px 13px;
+    font-family: ui-monospace, SFMono-Regular, monospace; font-size: 12.5px; line-height: 1.6;
+    color: rgba(255,255,255,.82); overflow-x: auto; box-shadow: var(--card-shadow-sm); }
+  .term .c { color: #6ea8ff; } .term .o { color: rgba(255,255,255,.4); } .term .g { color: #74d99f; }
+  .tag { display: inline-block; font-family: ui-monospace, monospace; font-size: 11px; color: var(--ink-500);
+    border: 1px solid var(--hairline-strong); border-radius: 999px; padding: 2px 9px; margin-top: 11px; }
 
-  /* ---- two ways ---- */
-  .ways { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 760px) { .ways { grid-template-columns: 1fr; } }
-  .way { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); }
-  .way .body { padding: 22px 24px 24px; }
-  .way h3 { font-size: 20px; margin-bottom: 6px; }
-  .way p { color: var(--muted); font-size: 15px; margin: 0 0 14px; }
-  .way .viz { height: 168px; background: var(--screen-bg); border-bottom: 1px solid var(--screen-line); position: relative; overflow: hidden; }
-  /* viewer viz */
-  .viz-viewer .big { position: absolute; inset: 16px 16px 54px; border-radius: 8px; background: linear-gradient(180deg,#0f172a,#241b4b); border: 1px solid rgba(255,255,255,.08); }
-  .viz-viewer .dial { position: absolute; left: 20px; right: 20px; bottom: 14px; height: 30px; border-radius: 8px; background: rgba(20,18,26,.9); border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; gap: 4px; padding: 0 8px; }
-  .viz-viewer .dial i { flex: 0 0 22px; height: 15px; border-radius: 3px; background: rgba(255,255,255,.14); display: inline-block; }
-  .viz-viewer .dial i.on { background: var(--grad); height: 19px; }
-  /* fab viz */
-  .viz-fab .app { position: absolute; inset: 0; padding: 16px; }
-  .viz-fab .l { height: 8px; border-radius: 3px; background: rgba(255,255,255,.10); margin-bottom: 8px; }
-  .viz-fab .l.w1 { width: 40%; } .viz-fab .l.w2 { width: 66%; height: 20px; } .viz-fab .l.w3 { width: 52%; }
-  .viz-fab .fab { position: absolute; right: 16px; bottom: 16px; width: 40px; height: 40px; border-radius: 999px; background: var(--grad); box-shadow: 0 10px 22px -6px var(--fuchsia); display: grid; place-items: center; color: #fff; }
-  .way ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
-  .way ul li { margin: 4px 0; }
+  /* two ways */
+  .ways { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 720px){ .ways{ grid-template-columns: 1fr; } }
+  .way { border-radius: 12px; overflow: hidden; background: var(--surface); box-shadow: var(--card-shadow);
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+  .way:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 10px 26px rgba(0,0,0,.10); }
+  .way .viz { height: 150px; background: var(--surface-dark); position: relative; overflow: hidden; box-shadow: inset 0 -1px 0 rgba(255,255,255,.06); }
+  .way .body { padding: 18px 20px 20px; }
+  .way h3 { font-size: 14px; font-weight: 550; letter-spacing: -0.006em; margin-bottom: 5px; }
+  .way p { font-size: 14px; color: var(--ink-700); margin: 0 0 11px; }
+  .way ul { margin: 0; padding-left: 16px; font-size: 13px; color: var(--ink-500); }
+  .way ul li { margin: 3px 0; }
+  .viz-viewer .big { position: absolute; inset: 14px 14px 46px; border-radius: 8px; background: linear-gradient(180deg,#0f1830,#1a1740); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .viz-viewer .dial { position: absolute; left: 18px; right: 18px; bottom: 12px; height: 26px; border-radius: 8px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); display: flex; align-items: center; gap: 4px; padding: 0 7px; }
+  .viz-viewer .dial i { flex: 0 0 20px; height: 13px; border-radius: 3px; background: rgba(255,255,255,.14); }
+  .viz-viewer .dial i.on { background: var(--blue-solid); height: 17px; }
+  .viz-fab .app { position: absolute; inset: 0; padding: 15px; }
+  .viz-fab .l { height: 7px; border-radius: 3px; background: rgba(255,255,255,.10); margin-bottom: 8px; }
+  .viz-fab .l.w1{width:40%;} .viz-fab .l.w2{width:64%;height:18px;} .viz-fab .l.w3{width:50%;}
+  .viz-fab .fab { position: absolute; right: 14px; bottom: 14px; width: 36px; height: 36px; border-radius: 999px; background: var(--blue-solid); box-shadow: 0 8px 18px -6px rgba(60,130,247,.6); display: grid; place-items: center; color: #fff; }
 
-  /* ---- expectations ---- */
-  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 34px; }
-  @media (max-width: 700px) { .notes { grid-template-columns: 1fr; } }
-  .note { display: grid; grid-template-columns: 22px 1fr; gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
-  .note svg { margin-top: 3px; color: var(--fuchsia); }
-  .note b { font-weight: 600; }
-  .note p { margin: 3px 0 0; color: var(--muted); font-size: 14.5px; }
+  /* expectations */
+  .metrics { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+  .metric { flex: 1 1 190px; background: var(--surface); border-radius: 12px; padding: 17px; box-shadow: var(--card-shadow-sm); border: 1px solid var(--hairline); }
+  .metric .v { font-family: "IBM Plex Serif", serif; font-weight: 500; font-size: 25px; color: var(--ink-900); letter-spacing: -0.01em; }
+  .metric .v .u { font-size: 13px; color: var(--ink-500); }
+  .metric .k { font-size: 13px; color: var(--ink-500); margin-top: 3px; }
+  .notes { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 30px; }
+  @media (max-width: 680px){ .notes{ grid-template-columns: 1fr; } }
+  .note { display: grid; grid-template-columns: 18px 1fr; gap: 11px; padding: 14px 0; border-top: 1px solid var(--hairline); }
+  .note svg { margin-top: 3px; color: var(--blue); }
+  .note b { color: var(--ink-900); font-weight: 550; }
+  .note p { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-700); }
 
-  .metrics { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
-  .metric { flex: 1 1 200px; border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: var(--surface); }
-  .metric .v { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
-  .metric .v .u { font-size: 15px; color: var(--muted); font-weight: 500; }
-  .metric .k { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
-
-  /* ---- final cta ---- */
-  .final { text-align: center; }
-  .final .card { border: 1px solid var(--line-strong); border-radius: 22px; padding: clamp(38px,6vw,60px) 28px; background: var(--surface); box-shadow: var(--shadow); }
-  .final h2 { font-size: clamp(28px, 4.5vw, 42px); }
-  .final p { color: var(--muted); max-width: 34em; margin: 14px auto 26px; }
+  /* final */
+  .final .card { border-radius: 16px; padding: clamp(34px,5vw,52px) 28px; background: var(--surface);
+    box-shadow: var(--card-shadow); text-align: center; }
+  .final h2 { font-family: "IBM Plex Serif", serif; font-weight: 500; font-size: clamp(24px,4vw,34px); letter-spacing: -0.01em; }
+  .final p { font-size: 14.5px; color: var(--ink-700); max-width: 46ch; margin: 12px auto 22px; }
   .final .cmdrow { justify-content: center; }
 
-  footer { border-top: 1px solid var(--line); padding: 30px 0 48px; }
-  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; color: var(--faint); font-size: 13.5px; }
-  .foot a { color: var(--muted); text-decoration: none; }
-  .foot a:hover { color: var(--ink); }
+  footer { border-top: 1px solid var(--hairline); padding: 26px 0 44px; }
+  .foot { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; font-size: 13px; color: var(--ink-400); }
+  .foot a { color: var(--ink-500); transition: color .15s; } .foot a:hover { color: var(--ink-900); }
 
-  :focus-visible { outline: 2px solid var(--fuchsia); outline-offset: 3px; border-radius: 4px; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
 </style>
 </head>
 <body>
 <header>
   <div class="wrap bar">
-    <div class="brand"><span class="dot"></span> design-history</div>
+    <div class="brand"><span class="dot"></span> <b>design-history</b></div>
     <nav>
       <a class="hide-sm" href="#how">How it works</a>
-      <a class="hide-sm" href="#install">Install</a>
+      <a class="hide-sm" href="#browse">Browse</a>
       <a class="hide-sm" href="#expect">What to expect</a>
       <a class="ghlink" href="https://github.com/kingermayank/design-history">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         GitHub
       </a>
     </nav>
@@ -255,24 +236,18 @@
 <main>
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow">Visual git history · for designers who ship in code</p>
-      <h1>Your interface has a&nbsp;past. <span class="grad">Now you can scrub through it.</span></h1>
+      <p class="eyebrow">Visual git history · v0.1</p>
+      <h1 style="margin-top:12px">Your interface has a past. See every version of it.</h1>
       <p class="lede">Figma keeps every version on an infinite canvas. Your codebase throws the old ones away. design-history takes a screenshot of every commit — past and future — and lets you travel back and forth through your UI's evolution.</p>
       <div class="cmdrow">
-        <div class="cmd">
-          <span class="prompt mono">$</span>
-          <code id="install-cmd">npx design-history init</code>
-          <button data-copy="npx design-history init">copy</button>
-        </div>
-        <a class="cta" href="#install">Start reconstructing →</a>
+        <div class="cmd"><span class="p mono">$</span><code>npx design-history init</code><button data-copy="npx design-history init">copy</button></div>
+        <a class="btn-primary" href="#how">How it works →</a>
       </div>
 
       <div class="stage">
         <div class="strip-frame">
-          <span class="fade-l"></span><span class="fade-r"></span>
-          <span class="needle"></span>
-          <div class="reel" id="reel">
-            <!-- 5 eras, then repeated for the loop -->
+          <span class="fade-l"></span><span class="fade-r"></span><span class="needle"></span>
+          <div class="reel">
             <div class="frame"><div class="shot s1"><div class="nav"><span>DEMO</span><span>About</span></div><div class="hl"></div><div class="sub"></div><div class="btn"></div></div><div class="cap"><span class="date">May 14</span><span class="sha">73590f3</span></div></div>
             <div class="frame"><div class="shot s2"><div class="nav"><span>DEMO</span><span>About</span></div><div class="hl"></div><div class="sub"></div><div class="btn"></div></div><div class="cap"><span class="date">May 21</span><span class="sha">84ffb2a</span></div></div>
             <div class="frame"><div class="shot s3"><div class="nav"><span>DEMO</span><span>About</span></div><div class="hl"></div><div class="hl b"></div><div class="cards"><div></div><div></div><div></div></div></div><div class="cap"><span class="date">Jun 02</span><span class="sha">ca39808</span></div></div>
@@ -283,7 +258,7 @@
             <div class="frame"><div class="shot s3"><div class="nav"><span>DEMO</span><span>About</span></div><div class="hl"></div><div class="hl b"></div><div class="cards"><div></div><div></div><div></div></div></div><div class="cap"><span class="date">Jun 02</span><span class="sha">ca39808</span></div></div>
           </div>
         </div>
-        <p class="scrub-hint">← the same screen, five commits apart · drag the dial to travel through time →</p>
+        <p class="scrub-hint">the same screen, five commits apart — drag the dial to travel through time</p>
       </div>
     </div>
   </section>
@@ -292,19 +267,19 @@
     <div class="wrap">
       <div class="pillars">
         <div class="pill">
-          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></div>
+          <div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></div>
           <h3>Backfill the past</h3>
           <p>Point it at a repo with months of history. It replays every commit and screenshots each version — reconstructing a timeline you never recorded.</p>
         </div>
         <div class="pill">
-          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
           <h3>Capture the future</h3>
           <p>A non-blocking git hook screenshots every new commit in the background. Your history keeps growing without you thinking about it.</p>
         </div>
         <div class="pill">
-          <div class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="3"/><path d="M12 5v14"/></svg></div>
-          <h3>Travel through it</h3>
-          <p>A radio-dial scrubber — in a full-screen viewer or a floating button inside your running app. Or run <span class="mono">replay</span> to render the whole evolution as a shareable MP4.</p>
+          <div class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="3"/><path d="M12 5v14"/></svg></div>
+          <h3>Travel &amp; share</h3>
+          <p>Scrub the dial in a viewer or a floating button in your app — or run <span class="mono">replay</span> to render the whole evolution as a shareable MP4.</p>
         </div>
       </div>
     </div>
@@ -317,50 +292,34 @@
         <h2>Five steps from install to time travel.</h2>
         <p>No dashboard to configure, no account to make. Everything lives in a local <span class="mono">.design-history/</span> folder next to your code.</p>
       </div>
-
       <div class="steps">
-        <div class="step">
-          <div class="n">01</div>
-          <div>
-            <h3>Install &amp; initialize</h3>
-            <p>One command scaffolds a config, installs a background commit hook, updates your <span class="mono">.gitignore</span>, and grabs a headless browser. If you use Vite, it tells you how to add the in-app button.</p>
-            <div class="term"><span class="c">$</span> npm i -D design-history<br><span class="c">$</span> npx design-history init<br><span class="o"># ✓ wrote design-history.config.js</span><br><span class="o"># ✓ installed .git/hooks/post-commit</span></div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="n">02</div>
-          <div>
-            <h3>Point it at your app</h3>
-            <p>Open the config and set your dev-server URL and the routes you care about. No port flags to fuss with — it reads the URL your dev server prints, whatever framework you're on.</p>
-            <div class="term"><span class="o">// design-history.config.js</span><br>devServer: <span class="g">'http://localhost:5173'</span>,<br>routes: [{ path: <span class="g">'/'</span> }, { path: <span class="g">'/pricing'</span> }],</div>
-            <span class="tag">~30 seconds</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="n">03</div>
-          <div>
-            <h3>Reconstruct your history</h3>
-            <p>Backfill replays every past commit through one long-lived dev server, hot-swapping the source underneath it. You watch versions get captured, oldest to newest, in the terminal.</p>
-            <div class="term"><span class="c">$</span> npx design-history backfill<br><span class="o">[41/72] ca39808 → capture ✓</span><br><span class="o">[42/72] 0103e87 → capture ✓</span></div>
-            <span class="tag">~2–4s per commit · a few minutes total</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="n">04</div>
-          <div>
-            <h3>Then it just runs</h3>
-            <p>From now on, every <span class="mono">git commit</span> fires a screenshot in the background. It never blocks your commit, and commits that don't change anything visual are quietly collapsed.</p>
-            <span class="tag">zero ceremony · fully automatic</span>
-          </div>
-        </div>
-        <div class="step">
-          <div class="n">05</div>
-          <div>
-            <h3>Scrub through time</h3>
-            <p>Open the viewer, or click the floating button in your dev app. Drag the dial and watch your interface morph across versions — the exact thing your codebase used to throw away.</p>
-            <div class="term"><span class="c">$</span> npx design-history view</div>
-          </div>
-        </div>
+        <div class="step"><div class="n">01</div><div>
+          <h3>Install &amp; initialize</h3>
+          <p>One command scaffolds a config, installs a background commit hook, updates your <span class="mono">.gitignore</span>, and detects your framework for the in-app button.</p>
+          <div class="term"><span class="c">$</span> npm i -D design-history<br><span class="c">$</span> npx design-history init<br><span class="o"># ✓ wrote design-history.config.js</span><br><span class="o"># ✓ detected framework: Next.js</span></div>
+        </div></div>
+        <div class="step"><div class="n">02</div><div>
+          <h3>Point it at your app</h3>
+          <p>Set your dev-server URL and the routes you care about. No port flags — it reads the URL your dev server prints, whatever framework you're on.</p>
+          <div class="term"><span class="o">// design-history.config.js</span><br>devServer: <span class="g">'http://localhost:5173'</span>,<br>routes: [{ path: <span class="g">'/'</span> }, { path: <span class="g">'/pricing'</span> }],</div>
+          <span class="tag">~30 seconds</span>
+        </div></div>
+        <div class="step"><div class="n">03</div><div>
+          <h3>Reconstruct your history</h3>
+          <p>Backfill replays every past commit through one long-lived dev server, hot-swapping the source underneath it. Versions get captured, oldest to newest.</p>
+          <div class="term"><span class="c">$</span> npx design-history backfill<br><span class="o">[41/72] ca39808 → capture ✓</span><br><span class="o">[42/72] 0103e87 → capture ✓</span></div>
+          <span class="tag">~2–4s per commit · a few minutes total</span>
+        </div></div>
+        <div class="step"><div class="n">04</div><div>
+          <h3>Then it just runs</h3>
+          <p>From now on, every <span class="mono">git commit</span> fires a screenshot in the background. It never blocks your commit, and non-visual commits are quietly collapsed.</p>
+          <span class="tag">zero ceremony · fully automatic</span>
+        </div></div>
+        <div class="step"><div class="n">05</div><div>
+          <h3>Scrub through time</h3>
+          <p>Open the viewer, or click the floating button in your dev app. Drag the dial and watch your interface morph across versions.</p>
+          <div class="term"><span class="c">$</span> npx design-history view</div>
+        </div></div>
       </div>
     </div>
   </section>
@@ -373,33 +332,19 @@
       </div>
       <div class="ways">
         <div class="way">
-          <div class="viz viz-viewer">
-            <div class="big"></div>
-            <div class="dial"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
-          </div>
+          <div class="viz viz-viewer"><div class="big"></div><div class="dial"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
           <div class="body">
             <h3>The standalone viewer</h3>
             <p><span class="mono">npx design-history view</span> opens a local studio — the big frame up top, the time-travel dial below.</p>
-            <ul>
-              <li>Scrub with the dial, arrows, or ← → keys</li>
-              <li>Switch routes and mobile / desktop</li>
-              <li>Search commits by message, author, or sha</li>
-            </ul>
+            <ul><li>Scrub with the dial, arrows, or ← → keys</li><li>Switch routes and mobile / desktop</li><li>See the code diff and restore any version</li></ul>
           </div>
         </div>
         <div class="way">
-          <div class="viz viz-fab">
-            <div class="app"><div class="l w2"></div><div class="l w1"></div><div class="l w3"></div><div class="l w1"></div></div>
-            <div class="fab"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></div>
-          </div>
+          <div class="viz viz-fab"><div class="app"><div class="l w2"></div><div class="l w1"></div><div class="l w3"></div><div class="l w1"></div></div><div class="fab"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l3 2"/></svg></div></div>
           <div class="body">
             <h3>The in-app button</h3>
-            <p>A floating button drops into your running app. Click it to expand the same dial, right over your live screen. Works in <b>Next.js, Vite, Remix, CRA</b> — any framework.</p>
-            <ul>
-              <li>Next / React: <span class="mono">&lt;DesignHistory /&gt;</span> · Vite: one-line plugin</li>
-              <li>Dev-only — nothing ships to production</li>
-              <li>Shadow-DOM isolated — never touches your styles</li>
-            </ul>
+            <p>A floating button in your running app — <b>Next.js, Vite, Remix, CRA</b>, any framework. Click to expand the same dial over your live screen.</p>
+            <ul><li>Next / React: <span class="mono">&lt;DesignHistory /&gt;</span> · Vite: one-line plugin</li><li>Dev-only — nothing ships to production</li><li>Shadow-DOM isolated — never touches your styles</li></ul>
           </div>
         </div>
       </div>
@@ -409,50 +354,32 @@
   <section id="expect">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">What to expect · the honest version</p>
-        <h2>Reconstructing history is real work. Here's the truth about it.</h2>
+        <p class="eyebrow red">What to expect · the honest version</p>
+        <h2>Reconstructing history is real work.</h2>
       </div>
-
       <div class="metrics">
-        <div class="metric"><div class="v">~2–4<span class="u">s</span></div><div class="k">per commit to capture, after the first boot</div></div>
+        <div class="metric"><div class="v">~2–4<span class="u">s</span></div><div class="k">per commit to capture, after first boot</div></div>
         <div class="metric"><div class="v">~5<span class="u">min</span></div><div class="k">a typical repo's full backfill, cache warm</div></div>
-        <div class="metric"><div class="v">100<span class="u">%</span> local</div><div class="k">no cloud, no account, no telemetry</div></div>
+        <div class="metric"><div class="v">100<span class="u">%</span></div><div class="k">local — no cloud, no account, no telemetry</div></div>
       </div>
-
-      <div class="notes" style="margin-top:34px">
-        <div class="note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <div><b>The first backfill takes a few minutes.</b><p>Most of the time is <span class="mono">npm install</span> at points where your lockfile changed. A copy-on-write cache keeps repeats fast.</p></div>
-        </div>
-        <div class="note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <div><b>Some old commits won't build — and that's fine.</b><p>Dependency drift or a broken WIP commit is logged and skipped. The run keeps going and captures everything that still runs.</p></div>
-        </div>
-        <div class="note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <div><b>Non-visual commits are collapsed.</b><p>Docs, tests, config-only diffs are marked "no visual change" so the timeline stays all signal.</p></div>
-        </div>
-        <div class="note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <div><b>Dynamic routes need a stable URL.</b><p>If a page's URL scheme changed over time (id → slug), pick the most history-stable one — older commits may show a not-found page. That's accurate history, not a bug.</p></div>
-        </div>
+      <div class="notes">
+        <div class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>The first backfill takes a few minutes.</b><p>Most time is <span class="mono">npm install</span> where your lockfile changed. A copy-on-write cache keeps repeats fast.</p></div></div>
+        <div class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>Some old commits won't build — and that's fine.</b><p>Dependency drift or a broken WIP commit is logged and skipped; the run keeps going.</p></div></div>
+        <div class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>Non-visual commits are collapsed.</b><p>Docs, tests, config-only diffs are marked "no visual change" so the timeline stays all signal.</p></div></div>
+        <div class="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>Dynamic routes need a stable URL.</b><p>If a page's URL scheme changed over time, older commits may show a not-found page — accurate history, not a bug.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section id="install" class="final">
+  <section class="final">
     <div class="wrap">
       <div class="card">
-        <p class="eyebrow">Free · MIT · open source</p>
+        <p class="eyebrow" style="margin-bottom:10px">Free · MIT · open source</p>
         <h2>See where your interface started.</h2>
         <p>Install it on any git repo with a dev server. A few minutes later, you'll be scrubbing through every version you thought you'd lost.</p>
         <div class="cmdrow">
-          <div class="cmd">
-            <span class="prompt mono">$</span>
-            <code>npm i -D design-history</code>
-            <button data-copy="npm i -D design-history">copy</button>
-          </div>
-          <a class="cta" href="https://github.com/kingermayank/design-history">View on GitHub →</a>
+          <div class="cmd"><span class="p mono">$</span><code>npm i -D design-history</code><button data-copy="npm i -D design-history">copy</button></div>
+          <a class="btn-primary" href="https://github.com/kingermayank/design-history">View on GitHub →</a>
         </div>
       </div>
     </div>
