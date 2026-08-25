@@ -44,7 +44,8 @@ export function TimeDial(props: Props): React.JSX.Element | null {
         (f) => (!routePath || f.routePath === routePath) && (!viewport || f.viewport === viewport),
       );
       if (!frame) return null;
-      return `/data/snapshots/${encodeURIComponent(eff.id)}/${encodeURIComponent(frame.file)}`;
+      const name = frame.thumb ?? frame.file;
+      return `/data/snapshots/${encodeURIComponent(eff.id)}/${encodeURIComponent(name)}`;
     },
     [byId, routePath, viewport],
   );

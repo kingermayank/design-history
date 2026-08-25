@@ -4,6 +4,28 @@ import { chromium, type Browser, type BrowserContext } from 'playwright';
 import type { DesignHistoryConfig, RouteConfig, SnapshotFrame, ViewportConfig } from './types.js';
 import { authPath } from './paths.js';
 
+/** Width of the small WebP thumbnail used by the dial / map. */
+const THUMB_WIDTH = 320;
+
+/**
+ * Write a small WebP thumbnail next to a full-size PNG. Lazy-imports sharp so a
+ * missing/broken native build never blocks a capture — the viewer just falls
+ * back to the full image. Returns the thumbnail's basename, or null.
+ */
+async function makeThumb(pngPath: string): Promise<string | null> {
+  try {
+    const { default: sharp } = await import('sharp');
+    const thumbName = pngPath.replace(/\.png$/, '.thumb.webp');
+    await sharp(pngPath)
+      .resize({ width: THUMB_WIDTH, withoutEnlargement: true })
+      .webp({ quality: 72 })
+      .toFile(thumbName);
+    return path.basename(thumbName);
+  } catch {
+    return null;
+  }
+}
+
 export interface CaptureBundleOptions {
   projectRoot: string;
   config: DesignHistoryConfig;
@@ -83,12 +105,14 @@ async function captureOne(
   const safeName = `${slug(route.path)}-${viewport.name}.png`;
   const file = path.join(outDir, safeName);
   await page.screenshot({ path: file, fullPage: false });
+  const thumb = await makeThumb(file);
 
   return {
     routePath: route.path,
     routeLabel: route.label ?? route.path,
     viewport: viewport.name,
     file: path.relative(outDir, file),
+    thumb: thumb ?? undefined,
     width: viewport.width,
     height: viewport.height,
   };

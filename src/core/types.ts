@@ -76,6 +76,8 @@ export interface SnapshotFrame {
   routeLabel: string;
   viewport: string;
   file: string;
+  /** Small WebP thumbnail for the dial/map (falls back to file if absent). */
+  thumb?: string;
   width: number;
   height: number;
 }

@@ -3,6 +3,7 @@ export interface ViewerFrame {
   routeLabel: string;
   viewport: string;
   file: string;
+  thumb?: string;
   width: number;
   height: number;
 }

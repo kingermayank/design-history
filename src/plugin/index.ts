@@ -30,6 +30,7 @@ const MIME: Record<string, string> = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.json': 'application/json; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
 };

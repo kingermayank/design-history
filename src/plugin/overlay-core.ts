@@ -18,6 +18,7 @@ interface Frame {
   routeLabel: string;
   viewport: string;
   file: string;
+  thumb?: string;
   width: number;
   height: number;
 }
@@ -128,13 +129,14 @@ class Overlay {
     return null;
   }
 
-  private effectiveFrameSrc(s: Snapshot): string | null {
+  private effectiveFrameSrc(s: Snapshot, thumb = false): string | null {
     const eff = s.state === 'skipped' ? this.resolveRef(s) ?? s : s;
     const frame = eff.frames.find(
       (f) => (!this.route || f.routePath === this.route) && (!this.viewport || f.viewport === this.viewport),
     );
     if (!frame) return null;
-    return `${this.base}/snapshots/${encodeURIComponent(eff.id)}/${encodeURIComponent(frame.file)}`;
+    const name = thumb && frame.thumb ? frame.thumb : frame.file;
+    return `${this.base}/snapshots/${encodeURIComponent(eff.id)}/${encodeURIComponent(name)}`;
   }
 
   private clamp(i: number): number {
@@ -185,7 +187,7 @@ class Overlay {
       btn.title = `${s.git.shortSha} — ${s.git.message}`;
       btn.style.width = `${THUMB_W}px`;
       btn.style.height = `${THUMB_H}px`;
-      const src = this.effectiveFrameSrc(s);
+      const src = this.effectiveFrameSrc(s, true);
       if (src) {
         const img = el('img', { src, loading: 'lazy' });
         btn.append(img);
