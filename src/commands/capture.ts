@@ -4,6 +4,7 @@ import { loadConfig } from '../core/config.js';
 import { isReachable } from '../core/devServer.js';
 import { getRepoRoot, isGitRepo, readCommitMeta } from '../core/git.js';
 import { captureBundle } from '../core/playwright.js';
+import { resolveRoutes } from '../core/routeDiscovery.js';
 import { hasSnapshot, upsertSnapshot } from '../core/manifest.js';
 import { skippedLogPath, snapshotDir } from '../core/paths.js';
 import type { FrameSource, SnapshotEntry } from '../core/types.js';
@@ -52,9 +53,10 @@ export async function runCapture(opts: CaptureOptions = {}): Promise<SnapshotEnt
 
   const outDir = snapshotDir(projectRoot, id);
   console.log(
-    `→ Capturing ${git.shortSha} "${git.message}" (${config.routes.length} routes × ${config.viewports.length} viewports)`,
+    `→ Capturing ${git.shortSha} "${git.message}"`,
   );
-  const frames = await captureBundle({ projectRoot, config, outDir, baseUrl });
+  const routes = await resolveRoutes(projectRoot, config, baseUrl);
+  const frames = await captureBundle({ projectRoot, config, outDir, baseUrl, routes });
 
   const entry: SnapshotEntry = {
     id,

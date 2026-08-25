@@ -32,10 +32,14 @@ export interface CaptureBundleOptions {
   outDir: string;
   baseUrl?: string; // override config.devServer (used by backfill)
   browser?: Browser;
+  /** Concrete routes to capture (resolves config.routes, incl. 'auto', upstream). */
+  routes?: RouteConfig[];
 }
 
 export async function captureBundle(opts: CaptureBundleOptions): Promise<SnapshotFrame[]> {
   const { projectRoot, config, outDir, baseUrl } = opts;
+  const routes: RouteConfig[] =
+    opts.routes ?? (Array.isArray(config.routes) ? config.routes : [{ path: '/', label: 'Home' }]);
   fs.mkdirSync(outDir, { recursive: true });
 
   const authFile = authPath(projectRoot);
@@ -57,7 +61,7 @@ export async function captureBundle(opts: CaptureBundleOptions): Promise<Snapsho
 
         try {
           const page = await context.newPage();
-          for (const route of config.routes) {
+          for (const route of routes) {
             try {
               const frame = await captureOne(page, base, route, viewport, outDir, config);
               frames.push(frame);

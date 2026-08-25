@@ -96,7 +96,7 @@ export async function runBackfill(opts: BackfillOptions = {}): Promise<void> {
   console.log(`\nBackfill plan: ${capturable.length} commits will be captured`);
   console.log(`  Auto-skipped (non-visual): ${autoSkipped}`);
   console.log(`  Already done:              ${alreadyDone}`);
-  console.log(`  Routes:                    ${config.routes.length} × ${config.viewports.length} viewports`);
+  console.log(`  Routes:                    ${Array.isArray(config.routes) ? config.routes.length : "auto"} × ${config.viewports.length} viewports`);
   console.log(`  Install:                   ${config.installCommand}`);
   console.log(`  Start:                     ${config.startCommand}`);
   console.log(

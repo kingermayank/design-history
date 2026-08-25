@@ -38,7 +38,8 @@ import {
   persistToCache,
   restoreFromCache,
 } from './installCache.js';
-import type { DesignHistoryConfig, SnapshotEntry } from './types.js';
+import { resolveRoutes } from './routeDiscovery.js';
+import type { DesignHistoryConfig, RouteConfig, SnapshotEntry } from './types.js';
 
 /** Restart the server after this many hot-swaps, regardless, as insurance. */
 const MAX_REUSE = 25;
@@ -102,6 +103,8 @@ export interface HistoryCaptureSession {
   serverSignature: string | null;
   /** How many commits we've hot-swapped since the last (re)start. */
   reuseCount: number;
+  /** Concrete routes (resolved once when config.routes is 'auto'). */
+  routes: RouteConfig[] | null;
 }
 
 export async function createHistoryCaptureSession(
@@ -119,6 +122,7 @@ export async function createHistoryCaptureSession(
     server: null,
     serverSignature: null,
     reuseCount: 0,
+    routes: null,
   };
 }
 

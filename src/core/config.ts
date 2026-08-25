@@ -32,15 +32,17 @@ function validate(raw: Partial<DesignHistoryConfig>): DesignHistoryConfig {
   if (!raw.devServer || typeof raw.devServer !== 'string') {
     throw new Error('config.devServer must be a string URL (e.g. "http://localhost:3000").');
   }
-  if (!Array.isArray(raw.routes) || raw.routes.length === 0) {
-    throw new Error('config.routes must be a non-empty array.');
+  if (raw.routes !== 'auto' && (!Array.isArray(raw.routes) || raw.routes.length === 0)) {
+    throw new Error("config.routes must be a non-empty array, or 'auto'.");
   }
   if (!Array.isArray(raw.viewports) || raw.viewports.length === 0) {
     throw new Error('config.viewports must be a non-empty array.');
   }
-  for (const r of raw.routes) {
-    if (!r.path || typeof r.path !== 'string') {
-      throw new Error('Every route must have a string `path`.');
+  if (Array.isArray(raw.routes)) {
+    for (const r of raw.routes) {
+      if (!r.path || typeof r.path !== 'string') {
+        throw new Error('Every route must have a string `path`.');
+      }
     }
   }
   for (const v of raw.viewports) {
@@ -50,7 +52,7 @@ function validate(raw: Partial<DesignHistoryConfig>): DesignHistoryConfig {
   }
   return {
     devServer: raw.devServer.replace(/\/$/, ''),
-    routes: raw.routes.map((r) => ({ ...r, label: r.label ?? r.path })),
+    routes: raw.routes === 'auto' ? 'auto' : raw.routes.map((r) => ({ ...r, label: r.label ?? r.path })),
     viewports: raw.viewports,
     waitFor: raw.waitFor ?? DEFAULTS.waitFor,
     installCommand: raw.installCommand ?? DEFAULTS.installCommand,
@@ -80,6 +82,8 @@ export default {
   devServer: 'http://localhost:3000',
 
   // The routes you want captured on every commit.
+  // Use 'auto' to discover routes from your sitemap / file-based routing:
+  //   routes: 'auto',
   routes: [
     { path: '/', label: 'Home' },
     // { path: '/dashboard', label: 'Dashboard', requiresAuth: true },

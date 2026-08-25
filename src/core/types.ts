@@ -29,7 +29,7 @@ export interface SkipPatternsConfig {
 
 export interface DesignHistoryConfig {
   devServer: string;
-  routes: RouteConfig[];
+  routes: RouteConfig[] | 'auto';
   viewports: ViewportConfig[];
   waitFor?: 'networkidle' | 'load' | 'domcontentloaded' | string | number;
   installCommand?: string;
