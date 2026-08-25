@@ -6,6 +6,7 @@ import { EmptyState } from './components/EmptyState.js';
 import { WorkerBanner } from './components/WorkerBanner.js';
 import { TimeDial } from './components/TimeDial.js';
 import { DetailDrawer } from './components/DetailDrawer.js';
+import { PagesMap } from './components/PagesMap.js';
 import { resolveReferenceFrame } from './lib/resolveReference.js';
 
 const POLL_MS = 2500;
@@ -19,6 +20,7 @@ export function App(): React.JSX.Element {
   const [search, setSearch] = useState('');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [mode, setMode] = useState<'dial' | 'map'>('dial');
 
   // Initial + polling fetch.
   useEffect(() => {
@@ -179,6 +181,8 @@ export function App(): React.JSX.Element {
         onToggleDetails={() => setDetailsOpen((v) => !v)}
         detailsOpen={detailsOpen}
         canShowDetails={!!active}
+        mode={mode}
+        onMode={setMode}
       />
       {workerStatus && <WorkerBanner status={workerStatus} />}
       <Filters
@@ -196,29 +200,40 @@ export function App(): React.JSX.Element {
           {showEmpty ? (
             <EmptyState />
           ) : (
-            <>
-              <SnapshotStage
-                snapshot={active}
-                routePath={routePath}
-                viewport={viewport}
-                onPrioritize={prioritize}
-                byId={byId}
-              />
-              <TimeDial
+            mode === 'map' ? (
+              <PagesMap
                 snapshots={filtered}
-                activeId={activeId}
-                routePath={routePath}
                 viewport={viewport}
-                byId={byId}
-                onSelect={(id) => {
-                  setActiveId(id);
-                  const sel = filtered.find((x) => x.id === id);
-                  if (sel && (sel.state === 'pending' || sel.state === 'failed')) {
-                    void prioritize(id);
-                  }
+                onOpenRoute={(rp) => {
+                  setRoutePath(rp);
+                  setMode('dial');
                 }}
               />
-            </>
+            ) : (
+              <>
+                <SnapshotStage
+                  snapshot={active}
+                  routePath={routePath}
+                  viewport={viewport}
+                  onPrioritize={prioritize}
+                  byId={byId}
+                />
+                <TimeDial
+                  snapshots={filtered}
+                  activeId={activeId}
+                  routePath={routePath}
+                  viewport={viewport}
+                  byId={byId}
+                  onSelect={(id) => {
+                    setActiveId(id);
+                    const sel = filtered.find((x) => x.id === id);
+                    if (sel && (sel.state === 'pending' || sel.state === 'failed')) {
+                      void prioritize(id);
+                    }
+                  }}
+                />
+              </>
+            )
           )}
         </main>
       </div>
@@ -235,6 +250,8 @@ function Header(props: {
   onToggleDetails: () => void;
   detailsOpen: boolean;
   canShowDetails: boolean;
+  mode: 'dial' | 'map';
+  onMode: (m: 'dial' | 'map') => void;
 }): React.JSX.Element {
   const { workerStatus } = props;
   const doneFraction = workerStatus
@@ -251,6 +268,20 @@ function Header(props: {
         </div>
       </div>
       <div className="flex items-center gap-4 text-sm tabular-nums">
+        <div className="flex items-center rounded-md bg-neutral-900 ring-1 ring-neutral-800 p-0.5 text-xs">
+          <button
+            onClick={() => props.onMode('dial')}
+            className={`px-2.5 py-1 rounded transition ${props.mode === 'dial' ? 'bg-neutral-800 text-neutral-100' : 'text-neutral-500 hover:text-neutral-200'}`}
+          >
+            Timeline
+          </button>
+          <button
+            onClick={() => props.onMode('map')}
+            className={`px-2.5 py-1 rounded transition ${props.mode === 'map' ? 'bg-neutral-800 text-neutral-100' : 'text-neutral-500 hover:text-neutral-200'}`}
+          >
+            Pages
+          </button>
+        </div>
         {workerStatus && workerStatus.totalKnown > 0 && (
           <div className="hidden sm:flex items-center gap-2 text-neutral-500">
             <div className="h-1.5 w-32 rounded-full bg-neutral-900 overflow-hidden">
