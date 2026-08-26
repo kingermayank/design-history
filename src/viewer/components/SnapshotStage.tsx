@@ -114,7 +114,7 @@ function SkippedNoReferenceStage(props: {
         </div>
         <button
           onClick={() => props.onPrioritize(props.snapshot.id)}
-          className="mt-5 inline-flex items-center gap-2 rounded-md bg-fuchsia-500/15 ring-1 ring-fuchsia-500/30 px-3 py-1.5 text-xs text-fuchsia-200 hover:bg-fuchsia-500/25"
+          className="mt-5 inline-flex items-center gap-2 rounded-md bg-accent-500/15 ring-1 ring-accent-500/30 px-3 py-1.5 text-xs text-accent-200 hover:bg-accent-500/25"
         >
           Capture anyway →
         </button>
@@ -140,7 +140,7 @@ function PendingStage(props: {
         </div>
         <button
           onClick={() => props.onPrioritize(snapshot.id)}
-          className="mt-5 inline-flex items-center gap-2 rounded-md bg-fuchsia-500/15 ring-1 ring-fuchsia-500/30 px-3 py-1.5 text-xs text-fuchsia-200 hover:bg-fuchsia-500/25"
+          className="mt-5 inline-flex items-center gap-2 rounded-md bg-accent-500/15 ring-1 ring-accent-500/30 px-3 py-1.5 text-xs text-accent-200 hover:bg-accent-500/25"
         >
           Capture next →
         </button>
@@ -154,8 +154,8 @@ function CapturingStage(props: { snapshot: ViewerSnapshot }): React.JSX.Element 
     <div className="flex-1 flex items-center justify-center p-10">
       <div className="max-w-md text-center fade-in">
         <SkeletonShimmer animated />
-        <div className="mt-6 flex items-center justify-center gap-2 text-sm text-fuchsia-200">
-          <span className="inline-block h-2 w-2 rounded-full bg-fuchsia-400 animate-pulse" />
+        <div className="mt-6 flex items-center justify-center gap-2 text-sm text-accent-200">
+          <span className="inline-block h-2 w-2 rounded-full bg-accent-400 animate-pulse" />
           Capturing now…
         </div>
         <div className="mt-1 text-xs text-neutral-600 font-mono">
@@ -211,7 +211,7 @@ function SkeletonShimmer({ animated = false }: { animated?: boolean }): React.JS
     <div className="mx-auto w-[min(560px,80%)] aspect-[4/3] rounded-lg bg-neutral-900 ring-1 ring-white/5 overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-800/40 to-transparent" />
       {animated && (
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-fuchsia-500/10 to-transparent animate-[shimmer_1.8s_linear_infinite]" style={{ backgroundSize: '200% 100%' }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent-500/10 to-transparent animate-[shimmer_1.8s_linear_infinite]" style={{ backgroundSize: '200% 100%' }} />
       )}
       <div className="absolute inset-x-6 top-6 h-3 rounded bg-white/5" />
       <div className="absolute inset-x-6 top-12 h-3 w-2/3 rounded bg-white/5" />

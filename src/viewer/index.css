@@ -4,9 +4,26 @@
 
 :root {
   color-scheme: dark;
+
+  /* Dark surface tokens (design.md dark mirror). Ink is white-at-alpha. */
+  --ground: #0e0e0f;
+  --surface: #161617;
+  --surface-subtle: #1c1c1e;
+  --ink-900: rgba(255, 255, 255, 0.92);
+  --ink-700: rgba(255, 255, 255, 0.7);
+  --ink-500: rgba(255, 255, 255, 0.5);
+  --ink-400: rgba(255, 255, 255, 0.38);
+  --hairline: rgba(255, 255, 255, 0.09);
+  --hairline-strong: rgba(255, 255, 255, 0.14);
+  --accent: #5aa2f5;
+
+  /* Signature easing + a small duration scale. */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -14,9 +31,9 @@ body {
   font-feature-settings: 'cv11', 'ss01', 'ss03';
 }
 
-/* Subtle inset focus rings on dark UI. */
+/* Quiet, on-brand focus ring in the accent blue. */
 *:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -37,14 +54,36 @@ body {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .fade-in {
-  animation: fade-in 180ms ease-out;
+  animation: fade-in 200ms var(--ease-brand);
 }
 
 @keyframes shimmer {
-  0%   { background-position: -100% 0; }
-  100% { background-position:  100% 0; }
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Honor reduced-motion: drop transforms/animations, keep opacity legible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

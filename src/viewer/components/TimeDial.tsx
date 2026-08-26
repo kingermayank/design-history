@@ -141,7 +141,7 @@ export function TimeDial(props: Props): React.JSX.Element | null {
 
           {/* center needle */}
           <div className="pointer-events-none absolute left-1/2 top-0 z-20 h-full -translate-x-1/2">
-            <div className="mx-auto h-0 w-0 border-x-[5px] border-t-[6px] border-x-transparent border-t-fuchsia-400" />
+            <div className="mx-auto h-0 w-0 border-x-[5px] border-t-[6px] border-x-transparent border-t-accent-400" />
           </div>
 
           {/* thumbnails */}
@@ -166,7 +166,7 @@ export function TimeDial(props: Props): React.JSX.Element | null {
                   title={`${s.git.shortSha} — ${s.git.message}`}
                   className={`relative shrink-0 overflow-hidden rounded-md ring-1 transition-all ${
                     isActive
-                      ? 'ring-2 ring-fuchsia-400 shadow-lg shadow-fuchsia-500/25'
+                      ? 'ring-2 ring-accent-400 shadow-lg shadow-accent-500/25'
                       : 'ring-white/10 opacity-70 hover:opacity-100'
                   }`}
                   style={{
@@ -202,7 +202,7 @@ export function TimeDial(props: Props): React.JSX.Element | null {
 function ThumbPlaceholder({ snapshot }: { snapshot: ViewerSnapshot }): React.JSX.Element {
   const bg =
     snapshot.state === 'capturing'
-      ? 'bg-fuchsia-500/20'
+      ? 'bg-accent-500/20'
       : snapshot.state === 'failed'
         ? 'bg-amber-500/15'
         : 'bg-neutral-800';
@@ -229,6 +229,6 @@ function StateDot({ state }: { state: ViewerSnapshot['state'] }): React.JSX.Elem
         ? 'bg-neutral-500'
         : state === 'failed'
           ? 'bg-amber-400'
-          : 'bg-fuchsia-400';
+          : 'bg-accent-400';
   return <span className={`inline-block h-1.5 w-1.5 rounded-full ${color}`} />;
 }

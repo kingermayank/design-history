@@ -78,7 +78,7 @@ export function PagesMap({ snapshots, viewport, onOpenRoute }: Props): React.JSX
           <button
             key={r.path}
             onClick={() => onOpenRoute(r.path)}
-            className="group text-left rounded-xl overflow-hidden bg-neutral-900 ring-1 ring-neutral-800 hover:ring-fuchsia-500/50 transition fade-in"
+            className="group text-left rounded-xl overflow-hidden bg-neutral-900 ring-1 ring-neutral-800 hover:ring-accent-500/50 transition fade-in"
           >
             <div className="aspect-[16/10] bg-neutral-950 overflow-hidden relative">
               {r.thumbSrc ? (

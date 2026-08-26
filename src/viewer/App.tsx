@@ -258,44 +258,54 @@ function Header(props: {
     ? workerStatus.doneCount / Math.max(1, workerStatus.totalKnown)
     : 1;
   return (
-    <header className="flex items-center justify-between px-5 py-3 border-b border-neutral-900">
-      <div className="flex items-center gap-3">
-        <div className="h-6 w-6 rounded bg-gradient-to-br from-fuchsia-500 to-amber-400" />
-        <div className="flex items-baseline gap-2">
-          <span className="font-semibold tracking-tight">design-history</span>
-          <span className="text-neutral-500">·</span>
-          <span className="text-neutral-300">{props.projectName}</span>
+    <header className="flex items-center justify-between gap-4 px-5 py-3 border-b border-[var(--hairline)]">
+      <div className="flex min-w-0 items-center gap-2.5">
+        <div className="grid h-6 w-6 shrink-0 place-items-center rounded-[7px] bg-accent-500 shadow-sm shadow-accent-500/30">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+            <path d="M3 3v5h5" />
+            <path d="M12 8v4l2.5 1.5" />
+          </svg>
+        </div>
+        <div className="flex min-w-0 items-baseline gap-2">
+          <span className="shrink-0 font-serif text-[15px] font-medium tracking-tight text-[var(--ink-900)]">
+            design-history
+          </span>
+          <span className="shrink-0 text-[var(--ink-400)]">·</span>
+          <span className="truncate text-[13px] text-[var(--ink-500)]" title={props.projectName}>
+            {props.projectName}
+          </span>
         </div>
       </div>
-      <div className="flex items-center gap-4 text-sm tabular-nums">
-        <div className="flex items-center rounded-md bg-neutral-900 ring-1 ring-neutral-800 p-0.5 text-xs">
+      <div className="flex shrink-0 items-center gap-4 text-sm tabular-nums">
+        <div className="flex items-center rounded-lg bg-neutral-900 ring-1 ring-[var(--hairline)] p-0.5 text-xs">
           <button
             onClick={() => props.onMode('dial')}
-            className={`px-2.5 py-1 rounded transition ${props.mode === 'dial' ? 'bg-neutral-800 text-neutral-100' : 'text-neutral-500 hover:text-neutral-200'}`}
+            className={`rounded-md px-2.5 py-1 transition-colors duration-150 ${props.mode === 'dial' ? 'bg-white/10 text-[var(--ink-900)] shadow-sm' : 'text-[var(--ink-500)] hover:text-[var(--ink-900)]'}`}
           >
             Timeline
           </button>
           <button
             onClick={() => props.onMode('map')}
-            className={`px-2.5 py-1 rounded transition ${props.mode === 'map' ? 'bg-neutral-800 text-neutral-100' : 'text-neutral-500 hover:text-neutral-200'}`}
+            className={`rounded-md px-2.5 py-1 transition-colors duration-150 ${props.mode === 'map' ? 'bg-white/10 text-[var(--ink-900)] shadow-sm' : 'text-[var(--ink-500)] hover:text-[var(--ink-900)]'}`}
           >
             Pages
           </button>
         </div>
         {workerStatus && workerStatus.totalKnown > 0 && (
           <div className="hidden sm:flex items-center gap-2 text-neutral-500">
-            <div className="h-1.5 w-32 rounded-full bg-neutral-900 overflow-hidden">
+            <div className="h-1.5 w-32 rounded-full bg-neutral-900 overflow-hidden ring-1 ring-[var(--hairline)]">
               <div
-                className="h-full bg-gradient-to-r from-fuchsia-500 to-amber-400 transition-all duration-500"
+                className="h-full bg-accent-500 transition-all duration-500 ease-brand"
                 style={{ width: `${Math.round(doneFraction * 100)}%` }}
               />
             </div>
-            <span className="text-neutral-400">
+            <span className="text-[var(--ink-400)]">
               {workerStatus.doneCount}/{workerStatus.totalKnown}
             </span>
           </div>
         )}
-        <div className="text-neutral-500">
+        <div className="hidden md:block text-[var(--ink-500)]">
           {props.shown === props.total
             ? `${props.total} snapshot${props.total === 1 ? '' : 's'}`
             : `${props.shown} / ${props.total} snapshots`}
@@ -303,10 +313,10 @@ function Header(props: {
         <button
           onClick={props.onToggleDetails}
           disabled={!props.canShowDetails}
-          className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs ring-1 transition disabled:opacity-30 ${
+          className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs ring-1 transition-colors duration-150 disabled:opacity-30 ${
             props.detailsOpen
-              ? 'bg-fuchsia-500/15 text-fuchsia-200 ring-fuchsia-500/30'
-              : 'bg-neutral-900 text-neutral-300 ring-neutral-800 hover:bg-neutral-800'
+              ? 'bg-accent-500/15 text-accent-200 ring-accent-500/40'
+              : 'bg-neutral-900 text-[var(--ink-700)] ring-[var(--hairline)] hover:bg-neutral-800'
           }`}
           title="Show the code diff and restore this version"
         >

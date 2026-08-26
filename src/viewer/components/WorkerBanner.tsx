@@ -14,7 +14,7 @@ export function WorkerBanner({ status }: Props): React.JSX.Element | null {
   }
 
   return (
-    <div className="flex items-center gap-3 px-5 py-2 bg-fuchsia-500/[0.04] border-b border-fuchsia-500/15 text-xs">
+    <div className="flex items-center gap-3 px-5 py-2 bg-accent-500/[0.04] border-b border-accent-500/15 text-xs">
       {status.currentSha ? (
         <>
           <Spinner />
@@ -46,7 +46,7 @@ export function WorkerBanner({ status }: Props): React.JSX.Element | null {
 function Spinner(): React.JSX.Element {
   return (
     <svg
-      className="h-3 w-3 animate-spin text-fuchsia-400"
+      className="h-3 w-3 animate-spin text-accent-400"
       viewBox="0 0 24 24"
       fill="none"
     >

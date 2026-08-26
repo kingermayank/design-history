@@ -69,7 +69,7 @@ export function DetailDrawer({ snapshot, onClose }: Props): React.JSX.Element | 
         <div className="sticky top-0 z-10 flex items-start justify-between gap-3 px-5 py-4 border-b border-neutral-900 bg-neutral-950/90 backdrop-blur">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-mono text-xs text-fuchsia-300">{snapshot.git.shortSha}</span>
+              <span className="font-mono text-xs text-accent-300">{snapshot.git.shortSha}</span>
               <span className="text-neutral-600 text-xs">·</span>
               <span className="text-xs text-neutral-500">{date.toLocaleString()}</span>
             </div>
@@ -106,7 +106,7 @@ export function DetailDrawer({ snapshot, onClose }: Props): React.JSX.Element | 
               </div>
               <button
                 onClick={doRestore}
-                className="shrink-0 rounded-md bg-fuchsia-500/15 ring-1 ring-fuchsia-500/30 px-3 py-1.5 text-xs text-fuchsia-200 hover:bg-fuchsia-500/25"
+                className="shrink-0 rounded-md bg-accent-500/15 ring-1 ring-accent-500/30 px-3 py-1.5 text-xs text-accent-200 hover:bg-accent-500/25"
               >
                 Restore →
               </button>
