@@ -19,6 +19,8 @@ npx design-history init
 
 `init` writes a config, installs a non-blocking `post-commit` hook, and — if you use Vite — tells you how to add the in-app button.
 
+That's the whole setup. The first time it captures, design-history downloads its headless browser automatically (a one-time ~150 MB Chromium) — no `playwright install` step to remember.
+
 ## Reconstruct your history
 
 ```bash

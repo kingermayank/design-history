@@ -3,6 +3,7 @@ import path from 'node:path';
 import { chromium, type Browser, type BrowserContext } from 'playwright';
 import type { DesignHistoryConfig, RouteConfig, SnapshotFrame, ViewportConfig } from './types.js';
 import { authPath } from './paths.js';
+import { ensureChromium } from './ensureBrowser.js';
 
 /** Width of the small WebP thumbnail used by the dial / map. */
 const THUMB_WIDTH = 320;
@@ -46,6 +47,7 @@ export async function captureBundle(opts: CaptureBundleOptions): Promise<Snapsho
   const storageState = fs.existsSync(authFile) ? authFile : undefined;
   const base = (baseUrl ?? config.devServer).replace(/\/$/, '');
 
+  if (!opts.browser) await ensureChromium();
   const browser = opts.browser ?? (await chromium.launch({ headless: true }));
   const ownsBrowser = !opts.browser;
 

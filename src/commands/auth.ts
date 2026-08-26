@@ -4,6 +4,7 @@ import { chromium } from 'playwright';
 import { loadConfig } from '../core/config.js';
 import { getRepoRoot, isGitRepo } from '../core/git.js';
 import { authPath, historyRoot } from '../core/paths.js';
+import { ensureChromium } from '../core/ensureBrowser.js';
 
 export async function runAuth(): Promise<void> {
   const cwd = process.cwd();
@@ -14,6 +15,7 @@ export async function runAuth(): Promise<void> {
   console.log('\n→ Opening a browser. Log in / navigate to whatever state you want captured.');
   console.log('  Close the window when you are done. Cookies + localStorage will be saved.\n');
 
+  await ensureChromium();
   const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext();
   const page = await context.newPage();

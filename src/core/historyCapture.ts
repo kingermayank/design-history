@@ -30,6 +30,7 @@ import {
 } from './git.js';
 import { startDevServer, isReachable, type ManagedServer } from './devServer.js';
 import { captureBundle } from './playwright.js';
+import { ensureChromium } from './ensureBrowser.js';
 import { upsertSnapshot } from './manifest.js';
 import { snapshotDir, worktreesRoot } from './paths.js';
 import {
@@ -114,6 +115,7 @@ export async function createHistoryCaptureSession(
   fs.mkdirSync(worktreesRoot(projectRoot), { recursive: true });
   removeWorktree(projectRoot, wtDir);
   rmDirResilient(wtDir);
+  await ensureChromium();
   return {
     wtDir,
     browser: await chromium.launch({ headless: true }),
