@@ -29,7 +29,7 @@
     "visual-regression",
     "ui"
   ],
-  "author": "",
+  "author": "Mayank Kinger",
   "license": "MIT",
   "engines": {
     "node": ">=20"
