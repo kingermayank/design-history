@@ -17,7 +17,7 @@
     "dev:cli": "tsup --watch",
     "dev:viewer": "vite",
     "typecheck": "tsc --noEmit",
-    "build:plugin": "esbuild src/plugin/index.ts --bundle --format=esm --platform=node --packages=external --outfile=dist/plugin/index.js && esbuild src/plugin/overlay.ts --bundle --format=iife --platform=browser --target=es2020 --minify --outfile=dist/plugin/overlay.js && esbuild src/plugin/react.tsx --bundle --format=esm --platform=browser --target=es2020 --external:react --outfile=dist/plugin/react.js",
+    "build:plugin": "esbuild src/plugin/index.ts --bundle --format=esm --platform=node --packages=external --outfile=dist/plugin/index.js && esbuild src/plugin/overlay.ts --bundle --format=iife --platform=browser --target=es2020 --minify --loader:.woff2=dataurl --outfile=dist/plugin/overlay.js && esbuild src/plugin/react.tsx --bundle --format=esm --platform=browser --target=es2020 --external:react --loader:.woff2=dataurl --outfile=dist/plugin/react.js",
     "prepare": "npm run build"
   },
   "keywords": [

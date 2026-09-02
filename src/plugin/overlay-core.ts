@@ -13,6 +13,24 @@
  * collide with the host app's React version, CSS, or global styles.
  */
 
+// Söhne, inlined as data: URLs by esbuild (--loader:.woff2=dataurl), so the
+// overlay carries its own typeface into any host app — no network, no reliance
+// on the host having the font. Buch covers normal text; Halbfett the 600 date.
+import soehneBuch from './fonts/soehne-buch.woff2';
+import soehneHalbfett from './fonts/soehne-halbfett.woff2';
+
+/** Register the Söhne faces once, at document level (shadow @font-face is
+ *  unreliable across browsers). Scoped family name to avoid clobbering the host. */
+function ensureSoehneFace(): void {
+  if (document.getElementById('dh-soehne-face')) return;
+  const st = document.createElement('style');
+  st.id = 'dh-soehne-face';
+  st.textContent =
+    `@font-face{font-family:'dh-soehne';src:url(${JSON.stringify(soehneBuch)}) format('woff2');font-weight:400 550;font-style:normal;font-display:swap;}` +
+    `@font-face{font-family:'dh-soehne';src:url(${JSON.stringify(soehneHalbfett)}) format('woff2');font-weight:600 700;font-style:normal;font-display:swap;}`;
+  document.head.appendChild(st);
+}
+
 interface Frame {
   routePath: string;
   routeLabel: string;
@@ -77,6 +95,7 @@ class Overlay {
 
   constructor(opts: { base?: string } = {}) {
     this.base = opts.base ?? '/__design-history';
+    ensureSoehneFace();
     const host = el('div', { id: 'design-history-overlay' });
     host.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:2147483000;';
     document.body.appendChild(host);
@@ -305,7 +324,7 @@ class Overlay {
     const st = document.createElement('style');
     st.textContent = `
       :host { all: initial; }
-      * { box-sizing: border-box; font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+      * { box-sizing: border-box; font-family: 'dh-soehne', ui-sans-serif, system-ui, -apple-system, sans-serif; }
       #fab {
         pointer-events: auto; position: fixed; right: 20px; bottom: 20px;
         width: 52px; height: 52px; border-radius: 999px; border: none; cursor: pointer;
