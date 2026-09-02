@@ -4,8 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['"IBM Plex Serif"', 'Georgia', 'serif'],
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        // Söhne everywhere, matching the landing page. serif points at Söhne
+        // too so the wordmark stays one family with the rest of the UI.
+        serif: ['"Söhne"', 'system-ui', 'sans-serif'],
+        sans: ['"Söhne"', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       // Single brand accent (blue), replacing the old fuchsia→amber gradient.

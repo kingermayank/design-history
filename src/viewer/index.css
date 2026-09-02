@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Söhne (self-hosted, Klim test cut) — the app's typeface, matching the site. */
+@font-face {
+  font-family: 'Söhne';
+  src: url('./fonts/soehne-buch.woff2') format('woff2');
+  font-weight: 400 450;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Söhne';
+  src: url('./fonts/soehne-kraftig.woff2') format('woff2');
+  font-weight: 500 550;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Söhne';
+  src: url('./fonts/soehne-halbfett.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: dark;
 
